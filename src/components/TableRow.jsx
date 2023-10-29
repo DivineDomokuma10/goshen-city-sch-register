@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { HStack, Td, Tr } from "@chakra-ui/react";
-import CheckBoxes from "./CheckBoxes";
+import DayCheckBox from "./DayCheckBox";
 
 const TableRow = ({ studentName }) => {
   return (
@@ -8,22 +8,42 @@ const TableRow = ({ studentName }) => {
       <Td>{studentName}</Td>
       <Td>
         <HStack>
-          <CheckBoxes />
+          <DayCheckBox />
+          <DayCheckBox />
+          <DayCheckBox />
+          <DayCheckBox />
+          <DayCheckBox />
+          <DayCheckBox />
         </HStack>
       </Td>
       <Td>
         <HStack>
-          <CheckBoxes />
+          <DayCheckBox />
+          <DayCheckBox />
+          <DayCheckBox />
+          <DayCheckBox />
+          <DayCheckBox />
+          <DayCheckBox />
         </HStack>
       </Td>
       <Td>
         <HStack>
-          <CheckBoxes />
+          <DayCheckBox />
+          <DayCheckBox />
+          <DayCheckBox />
+          <DayCheckBox />
+          <DayCheckBox />
+          <DayCheckBox />
         </HStack>
       </Td>
       <Td>
         <HStack>
-          <CheckBoxes />
+          <DayCheckBox />
+          <DayCheckBox />
+          <DayCheckBox />
+          <DayCheckBox />
+          <DayCheckBox />
+          <DayCheckBox />
         </HStack>
       </Td>
     </Tr>
