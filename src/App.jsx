@@ -54,34 +54,32 @@ function App() {
         handleSelectedCheckBox,
       }}
     >
-      <main style={{ width: "100vw", height: "100vh", background: "#fff" }}>
-        {showModal && <ReasonModal />}
-        <TableContainer>
-          <Table variant="striped">
-            <Thead>
-              <Tr>
-                <Td fontWeight="bold" padding="0">
-                  STUDENT NAME
+      {showModal && <ReasonModal />}
+      <TableContainer overflowY={"hidden"} h="100vh">
+        <Table variant="striped">
+          <Thead>
+            <Tr>
+              <Td fontWeight="bold" padding="0">
+                STUDENT NAME
+              </Td>
+              {currentWeeks.map((currentWeek) => (
+                <Td key={currentWeek} fontWeight="bold">
+                  WEEK {currentWeek}
                 </Td>
-                {currentWeeks.map((currentWeek) => (
-                  <Td key={currentWeek} fontWeight="bold">
-                    WEEK {currentWeek}
-                  </Td>
-                ))}
-              </Tr>
-            </Thead>
-            <Tbody>
-              {studentRegister.map((student) => (
-                <Student
-                  key={student.id}
-                  studentName={student.name}
-                  checkBoxes={student.checkBoxes}
-                />
               ))}
-            </Tbody>
-          </Table>
-        </TableContainer>
-      </main>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {studentRegister.map((student) => (
+              <Student
+                key={student.id}
+                studentName={student.name}
+                checkBoxes={student.checkBoxes}
+              />
+            ))}
+          </Tbody>
+        </Table>
+      </TableContainer>
     </AppContext.Provider>
   );
 }
