@@ -15,7 +15,7 @@ import Students from "../utils/studentsData";
 function App() {
   const [studentRegister, setStudentRegister] = useState([]);
 
-  const [weekSession, setWeekSession] = useState(1);
+  const [weekSession, setWeekSession] = useState(2);
 
   const [showModal, setShowModal] = useState(false);
 
@@ -54,32 +54,34 @@ function App() {
         handleSelectedCheckBox,
       }}
     >
-      {showModal && <ReasonModal />}
-      <TableContainer>
-        <Table variant="striped">
-          <Thead>
-            <Tr>
-              <Td fontWeight="bold" padding="0">
-                STUDENT NAME
-              </Td>
-              {currentWeeks.map((currentWeek) => (
-                <Td key={currentWeek} fontWeight="bold">
-                  WEEK {currentWeek}
+      <main style={{ width: "100vw", height: "100vh", background: "#fff" }}>
+        {showModal && <ReasonModal />}
+        <TableContainer>
+          <Table variant="striped">
+            <Thead>
+              <Tr>
+                <Td fontWeight="bold" padding="0">
+                  STUDENT NAME
                 </Td>
+                {currentWeeks.map((currentWeek) => (
+                  <Td key={currentWeek} fontWeight="bold">
+                    WEEK {currentWeek}
+                  </Td>
+                ))}
+              </Tr>
+            </Thead>
+            <Tbody>
+              {studentRegister.map((student) => (
+                <Student
+                  key={student.id}
+                  studentName={student.name}
+                  checkBoxes={student.checkBoxes}
+                />
               ))}
-            </Tr>
-          </Thead>
-          <Tbody>
-            {studentRegister.map((student) => (
-              <Student
-                key={student.id}
-                studentName={student.name}
-                checkBoxes={student.checkBoxes}
-              />
-            ))}
-          </Tbody>
-        </Table>
-      </TableContainer>
+            </Tbody>
+          </Table>
+        </TableContainer>
+      </main>
     </AppContext.Provider>
   );
 }
