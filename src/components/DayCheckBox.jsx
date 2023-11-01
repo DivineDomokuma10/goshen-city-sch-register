@@ -1,30 +1,30 @@
-import { useContext, useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 import { Checkbox } from "@chakra-ui/react";
+import { useContext } from "react";
 import AppContext from "../context/AppContext";
 
-const DayCheckBox = () => {
-  const { handleModal, studentReason } = useContext(AppContext);
-
-  let checkBoxId = Math.random().toString();
-
-  const [applyColorScheme, setApplyColorScheme] = useState(false);
+const DayCheckBox = ({ id, reason }) => {
+  const { handleModal, handleSelectedCheckBox } = useContext(AppContext);
 
   const handleColorScheme = (reason) => {
     if (reason === "Present") return "green";
     else if (reason === "Absent with notice") return "yellow";
     else if (reason === "Absent without notice") return "red";
+    else undefined;
   };
 
   return (
     <Checkbox
+      id={id}
       size="sm"
-      id={checkBoxId}
+      isChecked={reason.length > 0 ? true : false}
       onChange={(e) => {
         handleModal();
-        console.log(e.currentTarget.id);
-        if (e.currentTarget.id === checkBoxId) setApplyColorScheme(true);
+        handleSelectedCheckBox(id);
       }}
-      colorScheme={applyColorScheme && handleColorScheme(studentReason)}
+      colorScheme={handleColorScheme(reason)}
     />
   );
 };

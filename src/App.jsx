@@ -1,25 +1,60 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import "./App.css";
-import { useState } from "react";
-import TableRow from "./components/TableRow";
+import { useEffect, useState } from "react";
+import Student from "./components/Student";
 import AppContext from "./context/AppContext";
-import { Table, TableContainer, Tbody, Td, Thead, Tr } from "@chakra-ui/react";
 import ReasonModal from "./components/ReasonModal";
+import { Table, TableContainer, Tbody, Td, Thead, Tr } from "@chakra-ui/react";
+import {
+  genWeeks,
+  genStudentWithCheckBoxes,
+} from "../utils/checkBoxesGenerator";
+import Students from "../utils/studentsData";
 
 function App() {
-  const [studentReason, setStudentReason] = useState("");
+  const [studentRegister, setStudentRegister] = useState([]);
+
+  const [weekSession, setWeekSession] = useState(1);
 
   const [showModal, setShowModal] = useState(false);
 
-  const handleCheckBox = (reason) => setStudentReason(reason);
+  const [selectedCheckBoxId, setSelectedCheckBoxId] = useState("");
+
+  const [currentWeeks, setCurrentWeeks] = useState(() => genWeeks(weekSession));
 
   const handleModal = () => setShowModal((prev) => !prev);
 
+  const handleSelectedCheckBox = (id) => setSelectedCheckBoxId(id);
+
+  const handleCheckBox = (checkBoxId, studentReason) => {
+    const newVal = studentRegister.map((student) => ({
+      ...student,
+      checkBoxes: student.checkBoxes.map((checkBox) => {
+        if (checkBoxId === checkBox.id) {
+          return { ...checkBox, reason: studentReason };
+        } else {
+          return checkBox;
+        }
+      }),
+    }));
+
+    setStudentRegister(newVal);
+  };
+
+  useEffect(() => setStudentRegister(genStudentWithCheckBoxes(Students)), []);
+
   return (
     <AppContext.Provider
-      value={{ studentReason, handleModal, handleCheckBox, setStudentReason }}
+      value={{
+        currentWeeks,
+        selectedCheckBoxId,
+        handleModal,
+        handleCheckBox,
+        handleSelectedCheckBox,
+      }}
     >
-      {showModal ? <ReasonModal /> : ""}
+      {showModal && <ReasonModal />}
       <TableContainer>
         <Table variant="striped">
           <Thead>
@@ -27,21 +62,21 @@ function App() {
               <Td fontWeight="bold" padding="0">
                 STUDENT NAME
               </Td>
-              <Td fontWeight="bold">WEEK 1</Td>
-              <Td fontWeight="bold">WEEK 2</Td>
-              <Td fontWeight="bold">WEEK 3</Td>
-              <Td fontWeight="bold">WEEK 4</Td>
+              {currentWeeks.map((currentWeek) => (
+                <Td key={currentWeek} fontWeight="bold">
+                  WEEK {currentWeek}
+                </Td>
+              ))}
             </Tr>
           </Thead>
           <Tbody>
-            <TableRow studentName={"John emeka"} />
-            <TableRow studentName={"James Daniel"} />
-            <TableRow studentName={"Daniel emeka"} />
-            <TableRow studentName={"Daniel James"} />
-            <TableRow studentName={"emeka James"} />
-            <TableRow studentName={"James Daniel"} />
-            <TableRow studentName={"Daniel James"} />
-            <TableRow studentName={"Daniel James"} />
+            {studentRegister.map((student) => (
+              <Student
+                key={student.id}
+                studentName={student.name}
+                checkBoxes={student.checkBoxes}
+              />
+            ))}
           </Tbody>
         </Table>
       </TableContainer>
