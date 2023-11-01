@@ -5,13 +5,16 @@ import { useContext, useState } from "react";
 import AppContext from "../context/AppContext";
 
 const ReasonModal = () => {
-  const { handleModal, handleCheckBox } = useContext(AppContext);
+  const { handleModal, handleCheckBox, selectedCheckBoxId } =
+    useContext(AppContext);
 
   const [possibleReasons, setPossibleReasons] = useState([
     "Present",
     "Absent with notice",
     "Absent without notice",
   ]);
+
+  // console.log(selectedCheckBoxId);
 
   return (
     <section style={styles.modalCon}>
@@ -22,7 +25,13 @@ const ReasonModal = () => {
 
         <div style={styles.modalContent}>
           {possibleReasons.map((reason) => (
-            <span key={reason} onClick={() => handleCheckBox(reason)}>
+            <span
+              key={reason}
+              onClick={() => {
+                handleModal();
+                handleCheckBox(selectedCheckBoxId, reason);
+              }}
+            >
               {reason}
             </span>
           ))}
@@ -59,6 +68,7 @@ const styles = {
   modalContent: {
     display: "flex",
     padding: "20px",
+    cursor: "pointer",
     flexDirection: "column",
   },
 };
