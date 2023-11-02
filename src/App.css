@@ -4,3 +4,47 @@
   padding: 2rem;
   text-align: center;
 }
+.modalCon {
+  top: 0;
+  left: 0;
+  z-index: 50;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  position: fixed;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.9);
+}
+.modal {
+  display: flex;
+  border-radius: 5px;
+  flex-direction: column;
+  background-color: white;
+}
+.modalClose {
+  display: flex;
+  cursor: pointer;
+  padding: 5px;
+  justify-content: flex-end;
+}
+.modalClose span {
+  padding: 2px 10px;
+  border-radius: 5px;
+}
+.modalClose span:hover {
+  background: #eee;
+}
+.modalContent {
+  display: flex;
+  padding: 20px;
+  cursor: pointer;
+  flex-direction: column;
+}
+.modalContent span {
+  padding: 5px;
+  border-radius: 5px;
+}
+.modalContent span:hover {
+  background: #eee;
+}

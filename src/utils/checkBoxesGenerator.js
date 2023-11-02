@@ -15,7 +15,7 @@ const genWeeks = (weekStart) => {
 const genCheckBoxes = (studentName) => {
   let holder = [];
 
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < 60; i++) {
     holder.push({ id: id() + studentName, reason: "" });
   }
   return holder;

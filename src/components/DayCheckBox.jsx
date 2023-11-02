@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
+
 import { Checkbox } from "@chakra-ui/react";
 import { useContext } from "react";
 import AppContext from "../context/AppContext";
@@ -20,7 +20,7 @@ const DayCheckBox = ({ id, reason }) => {
       id={id}
       size="sm"
       isChecked={reason.length > 0 ? true : false}
-      onChange={(e) => {
+      onChange={() => {
         handleModal();
         handleSelectedCheckBox(id);
       }}
